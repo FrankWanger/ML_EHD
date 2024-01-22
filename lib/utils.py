@@ -7,7 +7,6 @@ import numpy as np
 import pickle
 
 def load_predict(modelpath='Data/model.pkl',datapath='Validation.csv'):
-
     with open(modelpath, "rb") as f:
         Model = pickle.load(f)
 
@@ -39,7 +38,9 @@ def load_predict(modelpath='Data/model.pkl',datapath='Validation.csv'):
     y_pred = Model['model'].predict(X)
     return X,y_pred
 
-def save_pred(y_pred,datapath='Validation.csv'):
+def save_pred(y_pred,datapath='val.csv',verbose = 1):
     DB = pd.read_csv(datapath)
+    if verbose > 0:
+        print(DB)
     DB['Diameter_Mean']=y_pred
     DB.to_csv(datapath,index=False)
